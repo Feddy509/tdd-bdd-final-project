@@ -6,6 +6,7 @@
 #
 # https://www.apache.org/licenses/LICENSE-2.0
 #
+
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,6 +18,7 @@
 """
 Test Factory to make fake objects for testing
 """
+
 import factory
 from factory.fuzzy import FuzzyChoice, FuzzyDecimal
 from service.models import Product, Category
@@ -31,4 +33,32 @@ class ProductFactory(factory.Factory):
         model = Product
 
     id = factory.Sequence(lambda n: n)
-   ## Add code to create Fake Products 
+
+    # Add code to create Fake Products
+    name = FuzzyChoice([
+        "Chapeau",
+        "Pantalon",
+        "Chemise",
+        "Pomme",
+        "Banane",
+        "Pots",
+        "Serviettes",
+        "Ford",
+        "Chevy",
+        "Marteau",
+        "Clé à molette"
+    ])
+
+    description = factory.Faker("text")
+
+    price = FuzzyDecimal(0.5, 2000.0, 2)
+
+    available = FuzzyChoice([True, False])
+    category = FuzzyChoice([
+        Category.UNKNOWN,
+        Category.CLOTHS,
+        Category.FOOD,
+        Category.HOUSEWARES,
+        Category.AUTOMOTIVE,
+        Category.TOOLS
+    ])
